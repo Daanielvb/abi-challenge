@@ -22,7 +22,6 @@ public class VehicleResource {
 
     private final VehicleService service;
 
-
     @PostMapping
     @ApiOperation(value = "Stores a vehicle in the database")
     @ApiResponses( value = {
