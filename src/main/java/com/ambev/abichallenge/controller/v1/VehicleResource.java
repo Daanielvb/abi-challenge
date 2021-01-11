@@ -1,7 +1,7 @@
 package com.ambev.abichallenge.controller.v1;
 
 
-import com.ambev.abichallenge.model.Vehicle;
+import com.ambev.abichallenge.entity.Vehicle;
 import com.ambev.abichallenge.model.dto.VehicleRequest;
 import com.ambev.abichallenge.service.VehicleService;
 import io.swagger.annotations.Api;
@@ -30,6 +30,21 @@ public class VehicleResource {
             @ApiResponse(code = 500, message = "Something Unexpected Happened")
     })
     public ResponseEntity<Vehicle> storeVehicle(@RequestBody VehicleRequest request){
+        try {
+            return ResponseEntity.ok(service.save(request).get());
+        } catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping
+    @ApiOperation(value = "Updates a vehicle in the database")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Resource updated"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Something Unexpected Happened")
+    })
+    public ResponseEntity<Vehicle> updateVehicle(@RequestBody VehicleRequest request){
         try {
             return ResponseEntity.ok(service.save(request).get());
         } catch (Exception ex){

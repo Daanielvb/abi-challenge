@@ -1,4 +1,4 @@
-package com.ambev.abichallenge.model;
+package com.ambev.abichallenge.entity;
 
 import com.ambev.abichallenge.enums.VehicleTypeMapping;
 import lombok.Data;

@@ -1,25 +1,20 @@
 package com.ambev.abichallenge.controller.v1;
 
 
-import com.ambev.abichallenge.model.DeliveryOrder;
-import com.ambev.abichallenge.model.Vehicle;
+import com.ambev.abichallenge.entity.DeliveryOrder;
+import com.ambev.abichallenge.model.dto.DeliveryOrderRankingResponse;
 import com.ambev.abichallenge.model.dto.DeliveryOrderRequest;
-import com.ambev.abichallenge.model.dto.VehicleRequest;
 import com.ambev.abichallenge.service.DeliveryOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
-import org.mapstruct.Context;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriBuilder;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.NoResultException;
 import java.net.URI;
 
 @Api(value = "Order API")
@@ -48,4 +43,18 @@ public class DeliveryOrderResource {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping(value = "/{orderId}/vehicle/ranking")
+    public ResponseEntity<DeliveryOrderRankingResponse> sortVehicles(@PathVariable Long orderId){
+        try{
+            return ResponseEntity.ok().body(service.rankVehicles(orderId));
+        }
+        catch (NoResultException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

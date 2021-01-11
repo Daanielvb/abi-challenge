@@ -1,4 +1,4 @@
-package com.ambev.abichallenge.model;
+package com.ambev.abichallenge.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
