@@ -3,7 +3,6 @@ package com.ambev.abichallenge.service;
 import com.ambev.abichallenge.distance.Djisktra;
 import com.ambev.abichallenge.distance.LocationMap;
 import com.ambev.abichallenge.distance.Node;
-import com.ambev.abichallenge.distance.ShortestDistance;
 import com.ambev.abichallenge.entity.DeliveryOrder;
 import com.ambev.abichallenge.entity.Vehicle;
 import com.ambev.abichallenge.model.dto.DeliveryOrderRankingResponse;
@@ -11,7 +10,6 @@ import com.ambev.abichallenge.model.dto.DeliveryOrderRequest;
 import com.ambev.abichallenge.model.dto.VehicleScore;
 import com.ambev.abichallenge.repository.DeliveryOrderRepository;
 import com.ambev.abichallenge.util.ScoreCalculator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -43,17 +43,6 @@ dependencies {
 
 
 }
-//
-//sourceSets {
-//	integrationTest {
-//		java {
-//			compileClasspath += main.output + test.output
-//			runtimeClasspath += main.output + test.output
-//			srcDir file('src/integTest/java')
-//		}
-//		resources.srcDir file('src/integTest/resources')
-//	}
-//}
 
 
 bootJar {
