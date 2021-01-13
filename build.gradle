@@ -17,6 +17,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies {
@@ -49,7 +50,12 @@ sourceSets {
 			runtimeClasspath += main.output + test.output
 			srcDir file('src/integTest/java')
 		}
-
 		resources.srcDir file('src/integTest/resources')
 	}
 }
+
+//This builds fine but does not find tests on execution
+//sourceSets {
+//	test.java.srcDirs += 'src/integTest/groovy'
+//
+//}

@@ -18,31 +18,11 @@ public class VehicleService {
     private VehicleRepository repository;
 
     public Optional<Vehicle> save(VehicleRequest request){
-        return Optional.ofNullable(repository.save(toEntity(request)));
-    }
-
-    public void update(VehicleRequest request){
-        repository.save(toEntity(request));
-    }
-
-    public Optional<Vehicle> read(Long id){
-        return repository.findById(id);
+        return Optional.ofNullable(repository.save(request.toEntity()));
     }
 
     public Set<Vehicle> findAll(){
         return new HashSet<>(repository.findAll());
     }
-
-    private Vehicle toEntity(VehicleRequest request){
-        return Vehicle.builder()
-                .id(request.getId())
-                .type(new Type(request.getType()))
-                .location(request.getLocation())
-                .model(request.getModel())
-                .build();
-    }
-
-
-
 
 }

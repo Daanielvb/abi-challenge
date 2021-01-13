@@ -1,5 +1,7 @@
 package com.ambev.abichallenge.service;
 
+import com.ambev.abichallenge.distance.Node;
+import com.ambev.abichallenge.distance.ShortestDistance;
 import com.ambev.abichallenge.entity.DeliveryOrder;
 import com.ambev.abichallenge.entity.Vehicle;
 import com.ambev.abichallenge.model.dto.DeliveryOrderRankingResponse;
@@ -23,7 +25,7 @@ public class DeliveryOrderService {
     private final VehicleService vehicleService;
 
     public DeliveryOrder save(DeliveryOrderRequest request){
-        return repository.save(toEntity(request));
+        return repository.save(request.toEntity());
     }
 
     public DeliveryOrder findById(Long id){
@@ -40,37 +42,12 @@ public class DeliveryOrderService {
          Set<Vehicle> vehicles  = vehicleService.findAll();
          SortedSet<VehicleScore> scores = new TreeSet<>();
          for(Vehicle vehicle : vehicles){
-             int shortestDistance = findShortestDistance(vehicle, order.getLocation());
+             int shortestDistance = ShortestDistance.find(new Node(vehicle.getLocation()), new Node(order.getLocation()));
              int score = ScoreCalculator.calculateScore(vehicle.getType().getCapacity(), order.getQuantity(), shortestDistance);
-             VehicleScore vehicleScore = of(vehicle, score);
+             VehicleScore vehicleScore = VehicleScore.of(vehicle, score);
              scores.add(vehicleScore);
          }
          return scores;
     }
 
-    private VehicleScore of(Vehicle vehicle, double score){
-        return VehicleScore.builder()
-                .id(vehicle.getId())
-                .capacity(vehicle.getType().getCapacity())
-                .model(vehicle.getModel())
-                .location(vehicle.getLocation())
-                .score(score)
-                .build();
-    }
-
-    private int findShortestDistance(Vehicle vehicle, String location){
-        //Smallest dist between vehicle.getLocation() and location
-        //Implement Djiksthra algorithm
-        return 1;
-    }
-
-
-
-    private DeliveryOrder toEntity(DeliveryOrderRequest request){
-        return DeliveryOrder.builder()
-                .location(request.getLocation())
-                .quantity(request.getQuantity())
-                .store(request.getStore())
-                .build();
-    }
 }
