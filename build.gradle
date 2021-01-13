@@ -41,18 +41,19 @@ dependencies {
 	testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
 	testImplementation("net.bytebuddy:byte-buddy:1.10.12")
 
-}
 
-sourceSets {
-	integrationTest {
-		java {
-			compileClasspath += main.output + test.output
-			runtimeClasspath += main.output + test.output
-			srcDir file('src/integTest/java')
-		}
-		resources.srcDir file('src/integTest/resources')
-	}
 }
+//
+//sourceSets {
+//	integrationTest {
+//		java {
+//			compileClasspath += main.output + test.output
+//			runtimeClasspath += main.output + test.output
+//			srcDir file('src/integTest/java')
+//		}
+//		resources.srcDir file('src/integTest/resources')
+//	}
+//}
 
 
 bootJar {
@@ -60,8 +61,4 @@ bootJar {
 	version =  '0.1.0'
 }
 
-//This builds fine but does not find tests on execution
-//sourceSets {
-//	test.java.srcDirs += 'src/integTest/groovy'
-//
-//}
+

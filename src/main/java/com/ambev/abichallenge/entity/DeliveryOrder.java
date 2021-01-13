@@ -28,13 +28,4 @@ public class DeliveryOrder {
     private boolean completed;
 
 
-    public DeliveryOrder toEntity(DeliveryOrderRequest request){
-        return DeliveryOrder.builder()
-                .location(request.getLocation())
-                .quantity(request.getQuantity())
-                .store(request.getStore())
-                .build();
-    }
-
-
 }
