@@ -54,6 +54,12 @@ sourceSets {
 	}
 }
 
+
+bootJar {
+	baseName = 'abi-challenge'
+	version =  '0.1.0'
+}
+
 //This builds fine but does not find tests on execution
 //sourceSets {
 //	test.java.srcDirs += 'src/integTest/groovy'
