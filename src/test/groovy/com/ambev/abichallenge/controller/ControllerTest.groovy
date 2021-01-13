@@ -8,6 +8,7 @@ import org.spockframework.spring.SpringBean
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -15,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = AbiChallengeApplication.class)
 @ActiveProfiles("integTest")
+@Ignore
 class ControllerTest extends Specification{
 
     @SpringBean
