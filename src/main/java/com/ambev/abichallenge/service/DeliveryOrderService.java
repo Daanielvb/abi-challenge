@@ -1,5 +1,6 @@
 package com.ambev.abichallenge.service;
 
+import com.ambev.abichallenge.distance.LocationMap;
 import com.ambev.abichallenge.distance.Node;
 import com.ambev.abichallenge.distance.ShortestDistance;
 import com.ambev.abichallenge.entity.DeliveryOrder;
@@ -41,9 +42,11 @@ public class DeliveryOrderService {
     public Set<VehicleScore> sortVehiclesByLocation(DeliveryOrder order){
          Set<Vehicle> vehicles  = vehicleService.findAll();
          SortedSet<VehicleScore> scores = new TreeSet<>();
+         ShortestDistance shortestDistance = new ShortestDistance(LocationMap.nodes, LocationMap.edges);
          for(Vehicle vehicle : vehicles){
-             int shortestDistance = ShortestDistance.find(new Node(vehicle.getLocation()), new Node(order.getLocation()));
-             int score = ScoreCalculator.calculateScore(vehicle.getType().getCapacity(), order.getQuantity(), shortestDistance);
+             shortestDistance.calculateDistances(new Node(vehicle.getLocation()));
+             LinkedList<Node> path = shortestDistance.getPath(new Node(order.getLocation()));
+             int score = ScoreCalculator.calculateScore(vehicle.getType().getCapacity(), order.getQuantity(), path.size());
              VehicleScore vehicleScore = VehicleScore.of(vehicle, score);
              scores.add(vehicleScore);
          }
