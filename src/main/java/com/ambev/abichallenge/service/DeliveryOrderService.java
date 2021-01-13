@@ -1,5 +1,6 @@
 package com.ambev.abichallenge.service;
 
+import com.ambev.abichallenge.distance.Djisktra;
 import com.ambev.abichallenge.distance.LocationMap;
 import com.ambev.abichallenge.distance.Node;
 import com.ambev.abichallenge.distance.ShortestDistance;
@@ -42,11 +43,14 @@ public class DeliveryOrderService {
     public Set<VehicleScore> sortVehiclesByLocation(DeliveryOrder order){
          Set<Vehicle> vehicles  = vehicleService.findAll();
          SortedSet<VehicleScore> scores = new TreeSet<>();
-         ShortestDistance shortestDistance = new ShortestDistance(LocationMap.nodes, LocationMap.edges);
+
+
          for(Vehicle vehicle : vehicles){
-             shortestDistance.calculateDistances(new Node(vehicle.getLocation()));
-             LinkedList<Node> path = shortestDistance.getPath(new Node(order.getLocation()));
-             int score = ScoreCalculator.calculateScore(vehicle.getType().getCapacity(), order.getQuantity(), path.size());
+             Djisktra djisktra = new Djisktra(LocationMap.nodes, LocationMap.edges, new Node(vehicle.getLocation()));
+
+             //TODO: This distance is not working, it will always return 1
+             int shortestDistance = djisktra.shortestPath(new Node(order.getLocation()));
+             int score = ScoreCalculator.calculateScore(vehicle.getType().getCapacity(), order.getQuantity(), shortestDistance);
              VehicleScore vehicleScore = VehicleScore.of(vehicle, score);
              scores.add(vehicleScore);
          }

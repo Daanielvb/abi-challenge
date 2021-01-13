@@ -32,7 +32,6 @@ public class Djisktra {
     }
 
     public void runAlgorithm(){
-
         Map<Node, Integer>  adjacents = getAdjacents(this.origin);
         while(adjacents.size() > 0) {
             Node closest = getClosest(adjacents);
@@ -40,6 +39,10 @@ public class Djisktra {
                 visitNode(closest);
             }
         }
+    }
+
+    public int shortestPath(Node location){
+        return 1;
     }
 
     void visitNode(Node node){}
