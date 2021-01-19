@@ -6,7 +6,7 @@ ranking the best vehicles per delivery order
 # Docker usage
 1-Package the project jar with gradlew
 ```shell 
-./gradlew build && java -jar build/libs/abi-challenge.jar
+./gradlew clean build
 ```
 2-Build the docker image
 ```shell
